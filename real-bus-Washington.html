@@ -1,0 +1,512 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Washington Metropolitan Area Transit Authority API</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+	<script src="http://maps.google.com/maps/api/js?key=AIzaSyDoh6M1mZHfDNu7UXi8Bl1tRci0Devql5A"></script>
+	<style>
+		.map {
+		margin: auto;
+		width: 50%;
+		border: 3px solid rgb(159, 179, 7);
+		padding: 10px;
+		}
+	</style>
+  </head>
+  <body>
+	<nav class="navbar bg-body-tertiary" data-bs-theme="dark">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="#">
+			<img src="BusLogo.png" alt="Logo" width="60" height="60" class="sm-3 d-inline-block align-text-center ">
+			YOURTOUR
+		  </a>
+		</div>
+	  </nav>
+    <h1></h1>
+	<div class="my-2 map-overlay top">
+	</div> 
+	<div class="container text-center">
+		<div class="my-2 row justify-content-md-center">
+		  <div class="col-md-auto">
+			<h3 >"Embark on the Adventure: Join the 'Capital Charm' Bus Tour - Discover D.C.'s Secrets Between the White House and Washington Cathedral!"</h3>
+		  </div>
+		</div>
+	<div class="container text-center">
+		<div class="row">
+			<div class="col">
+				<div class="container">
+					<nav class="navbar navbar-expand-lg bg-primary rounded" data-bs-theme="light">
+					  <div class="container-fluid ">
+						<a class="navbar-brand" href="#"></a>
+						<form class="mt-2 row gy-2 gx-3 align-items-center">
+							<div class="col-auto">
+							  <label class="visually-hidden" for="autoSizingInput">Name</label>
+							  <input type="text" class="form-control" id="autoSizingInput" placeholder="Name">
+							</div>
+							<div class="col-auto">
+							  <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
+							  <div class="input-group">
+								<div class="input-group-text">@</div>
+								<input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Email">
+							  </div>
+							</div>
+							<div class="col-auto">
+							  <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+							  <select class="form-select" id="autoSizingSelect">
+								<option selected>Number of Adults</option>
+								<option value="1">One</option>
+								<option value="2">Two</option>
+								<option value="3">Three</option>
+							  </select>
+							</div>
+							<div class="col-auto">
+							  <div class="form-check">
+								<input class="form-check-input" type="checkbox" id="autoSizingCheck">
+								<label class="form-check-label" for="autoSizingCheck">
+								  Remember me
+								</label>
+							  </div>
+							</div>
+							<div class="col-auto">
+							  <button type="submit" class="btn btn-primary">Sign up</button>
+							</div>
+						  </form>
+					  </div>
+					</nav>
+				  </div>
+				
+
+			  <div class="my-2 map-overlay top">
+				<button onclick="getStopsLocations()" class="btn btn-primary">Check Out the Bus Stops! </button>
+			</div> 
+			</div>
+		<div class="row">
+			<div class="my-2 col-md-auto ">
+				<div id="carouselExample" class="carousel slide">
+				<div class="carousel-inner">
+				  <div class="carousel-item active">
+					<img src="SlidePic1.jpg" class="d-block w-100 rounded" alt="...">
+				  </div>
+				  <div class="carousel-item">
+					<img src="SlidePic2.jpg" class="d-block w-100 rounded" alt="...">
+				  </div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+				  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				  <span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+				  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+				  <span class="visually-hidden">Next</span>
+				</button>
+			  </div>
+			</div>
+			
+			
+
+		  <div class="col-md-auto">
+			<nav class="navbar bg-body-tertiary rounded" data-bs-theme="dark">
+				<div class="container">
+				  <a class="navbar-brand" href="#">
+					<div  class="object-fit-contain border rounded" id="map" style="width:1024px; height:768px"></div>
+					
+				  </a>
+				</div>
+			  </nav>
+			
+		  </div>
+		  
+		</div>
+		<div class="row">
+		  <div class="col">
+			1 of 3
+			
+		  </div>
+		  <div class="col-5">
+			2 of 3 (wider)
+		  </div>
+		  <div class="col">
+			3 of 3
+		  </div>
+		</div>
+	  </div>
+	  <nav class="navbar fixed-bottom bg-body-tertiary" data-bs-theme="dark">
+		<div class="container-fluid">
+		  <a class="navbar-brand" href="#">About YOURTOUR</a>
+		 
+		  <form class="mt-2 row gy-2 gx-3 align-items-center">
+			<div class="col-auto">
+			  <label class="visually-hidden" for="autoSizingInput">Name</label>
+			  <input type="text" class="form-control" id="autoSizingInput" placeholder="Name">
+			</div>
+			<div class="col-auto">
+			  <label class="visually-hidden" for="autoSizingInputGroup">Email</label>
+			  <div class="input-group">
+				<div class="input-group-text">@</div>
+				<input type="text" class="form-control" id="autoSizingInputGroup" placeholder="Email">
+			  </div>
+			</div>
+			<div class="col-auto">
+			  <label class="visually-hidden" for="autoSizingSelect">Preference</label>
+			  <select class="form-select" id="autoSizingSelect">
+				<option selected>Number of Adults</option>
+				<option value="1">One</option>
+				<option value="2">Two</option>
+				<option value="3">Three</option>
+			  </select>
+			</div>
+			<div class="col-auto">
+			  <div class="form-check">
+				<input class="form-check-input" type="checkbox" id="autoSizingCheck">
+				<label class="form-check-label" for="autoSizingCheck">
+				  Remember me
+				</label>
+			  </div>
+			</div>
+			<div class="col-auto">
+			  <button type="submit" class="btn btn-primary" >Sign up</button>
+			</div>
+		  </form>
+		  <p><a class="link-opacity-25-hover" href="#">Follow us </a></p>
+		</div>
+	  </nav>
+	<script>
+		var map;
+		var markers = [];
+        // const tourStops = [];
+
+		//MAP
+		// load map
+		function init(){
+			var myOptions = {
+				zoom      : 12,
+				center    : {lat:38.90765172565474,lng:-77.06855995374292},
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			};
+			var element = document.getElementById('map');
+			map = new google.maps.Map(element, myOptions);
+
+        // A marker with a PNG.
+        //resize img
+
+        const placeMarkerA = new google.maps.Marker ({
+			map,
+			position: { lat: 38.897729638072626,lng:-77.03657537685005},
+			icon: {
+				url: 'white-house.png',
+				scaledSize: new google.maps.Size(48,48)            
+				},
+			title: "The White House"
+		});
+            
+		const placeMarkerB = new google.maps.Marker ({
+			map,
+			position: { lat: 38.930616796843104,lng:-77.07093529110176},
+			icon: {
+				url: 'cathedral.png',
+				scaledSize: new google.maps.Size(48,48)            
+				},
+			title: "Washington National Cathedral"
+		});
+
+		getStopsLocations();
+		addMarkers();
+		}
+
+		init();
+		
+		//BUSES
+		// Add bus markers to map
+
+		async function addMarkers(){
+		// get bus data
+			var locations = await getBusLocations();
+		// loop through data, add bus markers
+			locations.forEach(function(bus){
+			var marker = getMarker(bus.VehicleID);		
+			if (marker){
+				moveMarker(marker,bus);
+			}
+			else{
+				addMarker(bus);			
+			}
+			});
+		// timer
+		console.log(new Date());
+		setTimeout(addMarkers,15000);
+		}
+
+
+		// Request bus data from MBTA
+		async function getBusLocations(){
+			var url= 'https://api.wmata.com/Bus.svc/json/jBusPositions?RouteID=33&api_key=e0be9ff204b24202b6e823f96bd36a62';
+			var response = await fetch(url);
+			var json     = await response.json();
+			return json.BusPositions;
+		}
+
+		function addMarker(bus){
+			var icon = getIcon(bus);
+			var marker = new google.maps.Marker({
+				position: {
+					lat: bus.Lat, 
+					lng: bus.Lon
+				},
+				map: map,
+				icon: icon,
+				id: bus.VehicleID
+			});
+			markers.push(marker);
+		}
+
+		function getIcon(bus){
+			// select icon based on bus direction
+			if (bus.DirectionNum === 0) {
+				return 'red.png';
+			}
+			return 'blue.png';	
+		}
+
+		function moveMarker(marker,bus) {
+			// change icon if bus has changed direction
+			var icon = getIcon(bus);
+			marker.setIcon(icon);
+
+			// move icon to new lat/lon
+			marker.setPosition( {
+				lat: bus.Lat, 
+				lng: bus.Lon
+			});
+		}
+
+		function getMarker(VehicleID){
+			var marker = markers.find(function(item){
+				return item.id === VehicleID;
+			});
+			return marker;
+		}
+
+
+		//STOPS
+		// Set LatLng and title text for the markers. The first marker (White House Pass)
+		// receives the initial focus when tab is pressed. Use arrow keys to
+		// move between markers; press tab again to cycle through the map controls.
+
+		// Request bus stops data from MBTA
+
+        async function getStopsLocations(){
+                var url= 'https://api.wmata.com/Bus.svc/json/jRouteDetails?RouteID=33&api_key=e0be9ff204b24202b6e823f96bd36a62';
+                var response = await fetch(url);
+                var json     = await response.json();
+                return json.Stops;
+                console.log('again thanks God!')
+		}
+
+
+
+	</script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<!-- <!DOCTYPE html>
+<html>
+    
+<head>
+    <style>
+        .map-overlay {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: "Roboto", "sans-serif";
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+		.map {
+		margin: auto;
+		width: 50%;
+		border: 3px solid green;
+		padding: 10px;
+		}
+	
+    </style>
+    <title>Washington Metropolitan Area Transit Authority API</title>
+    <script src="http://maps.google.com/maps/api/js?key=AIzaSyDoh6M1mZHfDNu7UXi8Bl1tRci0Devql5A"></script>
+</head>
+<body>
+	<div class="map-overlay top">
+		<button onclick="getStopsLocations()">BUTTON</button>
+	</div> 
+	<div class="map" id="map" style="width:1024px; height:768px"></div>
+	<div class="container text-center">
+		<div class="row">
+		  <div class="col">
+			1 of 3
+		  </div>
+		  <div class="col-6">
+			2 of 3 (wider)
+		  </div>
+		  <div class="col">
+			3 of 3
+		  </div>
+		</div>
+		<div class="row">
+		  <div class="col">
+			1 of 3
+		  </div>
+		  <div class="col-5">
+			2 of 3 (wider)
+		  </div>
+		  <div class="col">
+			3 of 3
+		  </div>
+		</div>
+	  </div>
+	<script>
+
+		var map;
+		var markers = [];
+        const tourStops = [];
+
+		// load map
+		function init(){
+			var myOptions = {
+				zoom      : 12,
+				center    : {lat:38.90765172565474,lng:-77.06855995374292},
+				mapTypeId : google.maps.MapTypeId.ROADMAP
+			};
+			var element = document.getElementById('map');
+			map = new google.maps.Map(element, myOptions);
+
+        // A marker with a PNG.
+        //resize img
+
+            const placeMarkerA = new google.maps.Marker ({
+                map,
+                position: { lat: 38.897729638072626,lng:-77.03657537685005},
+                icon: {
+                    url: 'white-house.png',
+                    scaledSize: new google.maps.Size(48,48)            
+                    },
+                title: "The White House"
+            });
+            
+            const placeMarkerB = new google.maps.Marker ({
+                map,
+                position: { lat: 38.930616796843104,lng:-77.07093529110176},
+                icon: {
+                    url: 'cathedral.png',
+                    scaledSize: new google.maps.Size(48,48)            
+                    },
+                title: "Washington National Cathedral"
+            });
+
+      
+            getStopsLocations();
+			addMarkers();
+		}
+
+		init();
+		
+	
+	// Add bus markers to map
+	async function addMarkers(){
+	// get bus data
+	var locations = await getBusLocations();
+
+	// loop through data, add bus markers
+	locations.forEach(function(bus){
+		var marker = getMarker(bus.VehicleID);		
+		if (marker){
+			moveMarker(marker,bus);
+		}
+		else{
+			addMarker(bus);			
+		}
+	});
+
+	// timer
+	console.log(new Date());
+	setTimeout(addMarkers,15000);
+}
+
+
+// Request bus data from MBTA
+async function getBusLocations(){
+    var url= 'https://api.wmata.com/Bus.svc/json/jBusPositions?RouteID=33&api_key=e0be9ff204b24202b6e823f96bd36a62';
+	var response = await fetch(url);
+	var json     = await response.json();
+	return json.BusPositions;
+}
+
+function addMarker(bus){
+	var icon = getIcon(bus);
+	var marker = new google.maps.Marker({
+	    position: {
+	    	lat: bus.Lat, 
+	    	lng: bus.Lon
+	    },
+	    map: map,
+	    icon: icon,
+	    id: bus.VehicleID
+	});
+	markers.push(marker);
+}
+
+function getIcon(bus){
+	// select icon based on bus direction
+	if (bus.DirectionNum === 0) {
+		return 'red.png';
+	}
+	return 'blue.png';	
+}
+
+function moveMarker(marker,bus) {
+	// change icon if bus has changed direction
+	var icon = getIcon(bus);
+	marker.setIcon(icon);
+
+	// move icon to new lat/lon
+    marker.setPosition( {
+    	lat: bus.Lat, 
+    	lng: bus.Lon
+	});
+}
+
+function getMarker(VehicleID){
+	var marker = markers.find(function(item){
+		return item.id === VehicleID;
+	});
+	return marker;
+}
+
+// Set LatLng and title text for the markers. The first marker (White House Pass)
+// receives the initial focus when tab is pressed. Use arrow keys to
+// move between markers; press tab again to cycle through the map controls.
+
+// Request bus stops data from MBTA
+
+        async function getStopsLocations(){
+                var url= 'https://api.wmata.com/Bus.svc/json/jRouteDetails?RouteID=33&api_key=e0be9ff204b24202b6e823f96bd36a62';
+                var response = await fetch(url);
+                var json     = await response.json();
+                return json.Stops;
+                console.log('again thanks God!')
+}
+
+
+
+
+</script>
+
+</body>
+</html> -->
